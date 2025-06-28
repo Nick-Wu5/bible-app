@@ -1,41 +1,48 @@
 export interface Verse {
   id: string;
-  content: string;
-  reference: string;
   book: string;
   chapter: number;
   verse: number;
+  content: string;
+  reference: string;
   translation: string;
-  dateAdded: Date;
   userId: string;
-  notes?: string;
-  tags: string[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface User {
   id: string;
   name: string;
-  phone?: string;
+  phone: string;
   denomination?: string;
   preferredTranslation: string;
   createdAt: Date;
+  // Future fields for cloud sync:
+  // email?: string;
+  // authProvider?: 'local' | 'firebase' | 'apple';
+  // lastSyncAt?: Date;
+}
+
+export interface AuthState {
+  isAuthenticated: boolean;
+  currentUser: User | null;
+  isLoading: boolean;
 }
 
 export interface DatabaseService {
-  // Verse operations
-  saveVerse(verse: Omit<Verse, "id" | "dateAdded">): Promise<string>;
-  getVerses(userId: string): Promise<Verse[]>;
+  createUser(user: Omit<User, "id" | "createdAt">): Promise<User>;
+  getUserByPhone(phone: string): Promise<User | null>;
+  getUserById(id: string): Promise<User | null>;
+  updateUser(userId: string, updates: Partial<User>): Promise<void>;
+  addVerse(
+    verse: Omit<Verse, "id" | "createdAt" | "updatedAt">
+  ): Promise<Verse>;
+  getVersesByUser(userId: string): Promise<Verse[]>;
   getVerse(id: string): Promise<Verse | null>;
-  updateVerse(verse: Verse): Promise<void>;
+  updateVerse(id: string, updates: Partial<Verse>): Promise<void>;
   deleteVerse(id: string): Promise<void>;
-
-  // User operations
-  saveUser(user: Omit<User, "id" | "createdAt">): Promise<string>;
-  getUser(id: string): Promise<User | null>;
-  updateUser(user: User): Promise<void>;
-  deleteUser(id: string): Promise<void>;
-
-  // Utility operations
-  initializeDatabase(): Promise<void>;
-  closeDatabase(): Promise<void>;
+  getAllVerses(): Promise<Verse[]>;
+  getAllUsers(): Promise<User[]>;
+  resetDatabase(): Promise<void>;
 }

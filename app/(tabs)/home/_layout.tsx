@@ -4,12 +4,7 @@ export default function HomeLayout() {
   return (
     <Stack
       screenOptions={{
-        headerStyle: {
-          backgroundColor: "#FFFFFF",
-        },
-        headerTitleStyle: {
-          fontWeight: "600",
-        },
+        headerShown: false,
       }}
     >
       <Stack.Screen

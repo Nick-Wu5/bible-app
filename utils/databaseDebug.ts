@@ -41,20 +41,19 @@ export async function debugDatabase() {
 export async function addTestData() {
   try {
     const dbService = new SQLiteService();
-    await dbService.initializeDatabase();
 
     // Add a test user
-    const userId = await dbService.saveUser({
+    const testUser = await dbService.createUser({
       name: "Debug User",
       phone: "+1234567890",
       denomination: "Christian",
       preferredTranslation: "NIV",
     });
 
-    console.log("✅ Test user created with ID:", userId);
+    console.log("✅ Test user created:", testUser);
 
     // Add a test verse
-    const verseId = await dbService.saveVerse({
+    const testVerse = await dbService.addVerse({
       content:
         "For God so loved the world that he gave his one and only Son, that whoever believes in him shall not perish but have eternal life.",
       reference: "John 3:16",
@@ -62,12 +61,10 @@ export async function addTestData() {
       chapter: 3,
       verse: 16,
       translation: "NIV",
-      userId: userId,
-      notes: "This is a test verse for debugging",
-      tags: ["love", "salvation", "gospel"],
+      userId: testUser.id,
     });
 
-    console.log("✅ Test verse created with ID:", verseId);
+    console.log("✅ Test verse created:", testVerse);
 
     // View the updated database
     await debugDatabase();
@@ -79,19 +76,11 @@ export async function addTestData() {
 // Function to reset database (WARNING: This deletes all data!)
 export async function resetDatabase() {
   try {
-    const db = await SQLite.openDatabaseAsync("bible-app.db");
+    const dbService = new SQLiteService();
 
     console.log("🗑️ Resetting database...");
 
-    // Drop existing tables
-    await db.execAsync("DROP TABLE IF EXISTS verses");
-    await db.execAsync("DROP TABLE IF EXISTS users");
-
-    console.log("✅ Tables dropped");
-
-    // Recreate tables
-    const dbService = new SQLiteService();
-    await dbService.initializeDatabase();
+    await dbService.resetDatabase();
 
     console.log("✅ Database reset complete");
   } catch (error) {
@@ -130,5 +119,20 @@ export async function getDatabaseInfo() {
     console.log("📊 === END DATABASE INFO ===");
   } catch (error) {
     console.error("❌ Error getting database info:", error);
+  }
+}
+
+// Function to clear all users (for testing authentication flow)
+export async function clearAllUsers() {
+  try {
+    const db = await SQLite.openDatabaseAsync("bible-app.db");
+
+    console.log("🗑️ Clearing all users...");
+
+    await db.runAsync("DELETE FROM users");
+
+    console.log("✅ All users cleared");
+  } catch (error) {
+    console.error("❌ Error clearing users:", error);
   }
 }

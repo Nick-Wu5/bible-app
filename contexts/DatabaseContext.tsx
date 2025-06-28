@@ -1,13 +1,11 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { SQLiteService } from "../services/SQLiteService";
-import { DatabaseService, User } from "../types/database";
+import { DatabaseService } from "../types/database";
 
 interface DatabaseContextType {
   database: DatabaseService | null;
   isLoading: boolean;
   error: string | null;
-  // Mock user for now (we'll add authentication later)
-  currentUser: User | null;
 }
 
 const DatabaseContext = createContext<DatabaseContextType | undefined>(
@@ -32,7 +30,6 @@ export const DatabaseProvider: React.FC<DatabaseProviderProps> = ({
   const [database, setDatabase] = useState<DatabaseService | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
     initializeDatabase();
@@ -44,20 +41,7 @@ export const DatabaseProvider: React.FC<DatabaseProviderProps> = ({
       setError(null);
 
       const db = new SQLiteService();
-      await db.initializeDatabase();
       setDatabase(db);
-
-      // Create a mock user for development
-      const mockUser: Omit<User, "id" | "createdAt"> = {
-        name: "Test User",
-        phone: "+1234567890",
-        denomination: "Christian",
-        preferredTranslation: "NIV",
-      };
-
-      const userId = await db.saveUser(mockUser);
-      const user = await db.getUser(userId);
-      setCurrentUser(user);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Failed to initialize database"
@@ -72,7 +56,6 @@ export const DatabaseProvider: React.FC<DatabaseProviderProps> = ({
     database,
     isLoading,
     error,
-    currentUser,
   };
 
   return (
