@@ -1,3 +1,9 @@
+import { useAuth } from "@/contexts/AuthContext";
+import { getDatabaseService } from "@/services/DatabaseService";
+import { colors, commonStyles, spacing } from "@/styles/theme";
+import { themeUtils } from "@/styles/themeUtils";
+import { User, Verse } from "@/types/database";
+import { clearAllUsers } from "@/utils/databaseDebug";
 import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useState } from "react";
 import {
@@ -8,12 +14,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useAuth } from "@/contexts/AuthContext";
-import { getDatabaseService } from "@/services/DatabaseService";
-import { colors, commonStyles, spacing } from "@/styles/theme";
-import { themeUtils } from "@/styles/themeUtils";
-import { User, Verse } from "@/types/database";
-import { clearAllUsers } from "@/utils/databaseDebug";
 
 export default function BibleStudyScreen() {
   const { currentUser } = useAuth();
@@ -252,18 +252,18 @@ export default function BibleStudyScreen() {
         <Text style={commonStyles.sectionTitle}>Debug Tools</Text>
 
         {/* Logging Tools */}
-        <View style={themeUtils.createCard()}>
+        <View style={themeUtils.styles.card}>
           <Text style={styles.cardTitle}>Database Logging</Text>
           <View style={styles.buttonGroup}>
             <TouchableOpacity
-              style={[themeUtils.createButton("secondary"), styles.button]}
+              style={[themeUtils.styles.buttonSecondary, styles.button]}
               onPress={logUserTable}
             >
               <Text style={commonStyles.buttonText}>Log User Table</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[themeUtils.createButton("secondary"), styles.button]}
+              style={[themeUtils.styles.buttonSecondary, styles.button]}
               onPress={logVerseTableForUser}
             >
               <Text style={commonStyles.buttonText}>
@@ -274,7 +274,7 @@ export default function BibleStudyScreen() {
         </View>
 
         {/* Specific User Deletion */}
-        <View style={themeUtils.createCard()}>
+        <View style={themeUtils.styles.card}>
           <Text style={styles.cardTitle}>Delete Specific User</Text>
           <View style={styles.dropdownContainer}>
             <View style={styles.pickerContainer}>
@@ -298,7 +298,7 @@ export default function BibleStudyScreen() {
             </View>
             <TouchableOpacity
               style={[
-                themeUtils.createButton("secondary"),
+                themeUtils.styles.buttonSecondary,
                 styles.deleteButton,
                 { backgroundColor: colors.error },
                 !selectedUser && { opacity: 0.5 },
@@ -312,7 +312,7 @@ export default function BibleStudyScreen() {
         </View>
 
         {/* Specific Verse Deletion */}
-        <View style={themeUtils.createCard()}>
+        <View style={themeUtils.styles.card}>
           <Text style={styles.cardTitle}>Delete Specific Verse</Text>
           <View style={styles.dropdownContainer}>
             <View style={styles.pickerContainer}>
@@ -339,7 +339,7 @@ export default function BibleStudyScreen() {
             </View>
             <TouchableOpacity
               style={[
-                themeUtils.createButton("secondary"),
+                themeUtils.styles.buttonSecondary,
                 styles.deleteButton,
                 { backgroundColor: colors.error },
                 !selectedVerse && { opacity: 0.5 },
@@ -353,11 +353,11 @@ export default function BibleStudyScreen() {
         </View>
 
         {/* Bulk Operations */}
-        <View style={themeUtils.createCard()}>
+        <View style={themeUtils.styles.card}>
           <Text style={styles.cardTitle}>Bulk Operations</Text>
           <View style={styles.buttonGroup}>
             <TouchableOpacity
-              style={[themeUtils.createButton("outline"), styles.button]}
+              style={[themeUtils.styles.buttonOutline, styles.button]}
               onPress={clearVerseTableForUser}
             >
               <Text
@@ -368,7 +368,7 @@ export default function BibleStudyScreen() {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={[themeUtils.createButton("outline"), styles.button]}
+              style={[themeUtils.styles.buttonOutline, styles.button]}
               onPress={clearAllUsersDebug}
             >
               <Text style={[commonStyles.buttonText, { color: colors.error }]}>
@@ -391,11 +391,13 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.border,
   },
   title: {
-    ...themeUtils.createText("2xl", { fontWeight: "700" }),
+    ...themeUtils.styles.text2xl,
+    fontWeight: "700",
     marginBottom: spacing.xs,
   },
   subtitle: {
-    ...themeUtils.createText("base", { color: colors.textSecondary }),
+    ...themeUtils.styles.textBase,
+    color: colors.textSecondary,
     marginBottom: spacing.md,
   },
   userInfo: {
@@ -404,14 +406,16 @@ const styles = StyleSheet.create({
     borderRadius: spacing.sm,
   },
   userInfoText: {
-    ...themeUtils.createText("sm", { color: colors.textSecondary }),
+    ...themeUtils.styles.textSm,
+    color: colors.textSecondary,
     textAlign: "center",
   },
   section: {
     padding: spacing.lg,
   },
   cardTitle: {
-    ...themeUtils.createText("lg", { fontWeight: "600" }),
+    ...themeUtils.styles.textLg,
+    fontWeight: "600",
     marginBottom: spacing.md,
   },
   buttonGroup: {

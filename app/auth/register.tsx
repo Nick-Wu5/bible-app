@@ -1,3 +1,12 @@
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  borderRadius,
+  colors,
+  commonStyles,
+  spacing,
+  typography,
+} from "@/styles/theme";
+import { themeUtils } from "@/styles/themeUtils";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -11,15 +20,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useAuth } from "@/contexts/AuthContext";
-import {
-  borderRadius,
-  colors,
-  commonStyles,
-  shadows,
-  spacing,
-} from "@/styles/theme";
-import { themeUtils } from "@/styles/themeUtils";
 
 export default function RegisterScreen() {
   const [name, setName] = useState("");
@@ -158,14 +158,14 @@ export default function RegisterScreen() {
 
           <TouchableOpacity
             style={[
-              themeUtils.createButton("primary"),
+              themeUtils.styles.buttonPrimary,
               isLoading && styles.disabledButton,
             ]}
             onPress={handleRegister}
             disabled={isLoading}
             activeOpacity={0.8}
           >
-            <Text style={commonStyles.buttonText}>
+            <Text style={styles.buttonText}>
               {isLoading ? "Creating Account..." : "Create Account"}
             </Text>
           </TouchableOpacity>
@@ -204,14 +204,14 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xl,
   },
   title: {
-    ...themeUtils.createText("2xl", { fontWeight: "700" }),
-    marginBottom: spacing.sm,
-    textAlign: "center",
+    ...themeUtils.styles.text2xl,
+    fontWeight: "700",
+    marginBottom: spacing.xs,
   },
   subtitle: {
-    ...themeUtils.createText("base", { color: colors.textSecondary }),
+    ...themeUtils.styles.textBase,
+    color: colors.textSecondary,
     textAlign: "center",
-    lineHeight: 22,
   },
   form: {
     flex: 1,
@@ -220,19 +220,19 @@ const styles = StyleSheet.create({
     marginBottom: spacing.lg,
   },
   label: {
-    ...themeUtils.createText("sm", { fontWeight: "600" }),
-    marginBottom: spacing.xs,
+    ...themeUtils.styles.textSm,
+    fontWeight: "600",
+    marginBottom: spacing.sm,
+    color: colors.textPrimary,
   },
   input: {
     backgroundColor: colors.surface,
     borderWidth: 1,
     borderColor: colors.border,
     borderRadius: borderRadius.md,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    fontSize: 16,
+    padding: spacing.md,
+    fontSize: typography.fontSize.base,
     color: colors.textPrimary,
-    ...shadows.sm,
   },
   pickerContainer: {
     flexDirection: "row",
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     borderColor: colors.primary,
   },
   translationText: {
-    ...themeUtils.createText("sm", { fontWeight: "500" }),
+    ...themeUtils.styles.textSm,
   },
   selectedTranslationText: {
     color: "white",
@@ -267,20 +267,35 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
   },
   backToLoginText: {
-    ...themeUtils.createText("base", {
-      color: colors.primary,
-      textDecorationLine: "underline",
-    }),
+    ...themeUtils.styles.textBase,
+    color: colors.primary,
+    textDecorationLine: "underline",
   },
   footer: {
     marginTop: spacing.xl,
     alignItems: "center",
   },
   footerText: {
-    ...themeUtils.createText("xs", {
-      color: colors.textSecondary,
-      textAlign: "center",
-      lineHeight: 18,
-    }),
+    ...themeUtils.styles.textXs,
+    color: colors.textSecondary,
+    textAlign: "center",
+    lineHeight: 18,
+  },
+  button: {
+    backgroundColor: colors.primary,
+    borderRadius: borderRadius.md,
+    paddingVertical: spacing.md,
+    paddingHorizontal: spacing.lg,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: spacing.lg,
+  },
+  buttonText: {
+    ...themeUtils.styles.textBase,
+    fontWeight: "600",
+    color: colors.surface,
+  },
+  buttonDisabled: {
+    backgroundColor: colors.textTertiary,
   },
 });

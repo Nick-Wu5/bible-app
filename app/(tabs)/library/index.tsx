@@ -1,3 +1,8 @@
+import { useAuth } from "@/contexts/AuthContext";
+import { getDatabaseService } from "@/services/DatabaseService";
+import { borderRadius, colors, commonStyles, spacing } from "@/styles/theme";
+import { themeUtils } from "@/styles/themeUtils";
+import { Verse } from "@/types/database";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useEffect, useState } from "react";
 import {
@@ -9,16 +14,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useAuth } from "@/contexts/AuthContext";
-import { getDatabaseService } from "@/services/DatabaseService";
-import {
-  borderRadius,
-  colors,
-  commonStyles,
-  spacing,
-} from "@/styles/theme";
-import { themeUtils } from "@/styles/themeUtils";
-import { Verse } from "@/types/database";
 
 export default function LibraryScreen() {
   const { currentUser } = useAuth();
@@ -109,7 +104,7 @@ export default function LibraryScreen() {
       ) : verses.length > 0 ? (
         <View style={styles.versesContainer}>
           {verses.map((verse) => (
-            <View key={verse.id} style={themeUtils.createCard()}>
+            <View key={verse.id} style={themeUtils.styles.card}>
               <View style={styles.verseHeader}>
                 <View style={styles.verseInfo}>
                   <Text style={styles.verseReference}>{verse.reference}</Text>
@@ -149,7 +144,7 @@ export default function LibraryScreen() {
           <Text style={styles.emptyStateText}>
             Start building your collection by adding Bible verses
           </Text>
-          <TouchableOpacity style={themeUtils.createButton("primary")}>
+          <TouchableOpacity style={themeUtils.styles.buttonPrimary}>
             <Text style={commonStyles.buttonText}>Add Your First Verse</Text>
           </TouchableOpacity>
         </View>
@@ -166,21 +161,22 @@ const styles = StyleSheet.create({
     borderBottomColor: colors.borderLight,
   },
   title: {
-    ...themeUtils.createText("2xl", { fontWeight: "700" }),
+    ...themeUtils.styles.text2xl,
+    fontWeight: "700",
     marginBottom: spacing.xs,
   },
   subtitle: {
-    ...themeUtils.createText("base", { color: colors.textSecondary }),
+    ...themeUtils.styles.textBase,
+    color: colors.textSecondary,
   },
   loadingContainer: {
-    ...themeUtils.flex.center,
+    ...themeUtils.styles.flexCenter,
     padding: spacing.xl,
   },
   loadingText: {
-    ...themeUtils.createText("base", {
-      color: colors.textSecondary,
-      fontStyle: "italic",
-    }),
+    ...themeUtils.styles.textBase,
+    color: colors.textSecondary,
+    fontStyle: "italic",
   },
   versesContainer: {
     padding: spacing.lg,
@@ -195,28 +191,27 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   verseReference: {
-    ...themeUtils.createText("lg", { fontWeight: "600" }),
+    ...themeUtils.styles.textLg,
+    fontWeight: "600",
     marginBottom: spacing.xs,
   },
   verseTranslation: {
-    ...themeUtils.createText("xs", {
-      color: colors.textSecondary,
-      backgroundColor: colors.background,
-      paddingHorizontal: spacing.xs,
-      paddingVertical: 2,
-      borderRadius: borderRadius.sm,
-      alignSelf: "flex-start",
-    }),
+    ...themeUtils.styles.textXs,
+    color: colors.textSecondary,
+    backgroundColor: colors.background,
+    paddingHorizontal: spacing.xs,
+    paddingVertical: 2,
+    borderRadius: borderRadius.sm,
+    alignSelf: "flex-start",
   },
   deleteButton: {
     padding: spacing.xs,
   },
   verseContent: {
-    ...themeUtils.createText("base", {
-      lineHeight: 24,
-      marginBottom: spacing.md,
-      fontStyle: "italic",
-    }),
+    ...themeUtils.styles.textBase,
+    lineHeight: 24,
+    marginBottom: spacing.md,
+    fontStyle: "italic",
   },
   verseFooter: {
     flexDirection: "row",
@@ -224,7 +219,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   verseDate: {
-    ...themeUtils.createText("xs", { color: colors.textSecondary }),
+    ...themeUtils.styles.textXs,
+    color: colors.textSecondary,
   },
   viewButton: {
     backgroundColor: colors.primary,
@@ -233,24 +229,23 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.xs,
   },
   viewButtonText: {
-    ...themeUtils.createText("xs", {
-      fontWeight: "600",
-      color: "white",
-    }),
+    ...themeUtils.styles.textXs,
+    fontWeight: "600",
+    color: "white",
   },
   emptyState: {
-    ...themeUtils.flex.center,
+    ...themeUtils.styles.flexCenter,
     padding: spacing.xl,
   },
   emptyStateTitle: {
-    ...themeUtils.createText("lg", { fontWeight: "600" }),
+    ...themeUtils.styles.textLg,
+    fontWeight: "600",
     marginBottom: spacing.sm,
   },
   emptyStateText: {
-    ...themeUtils.createText("base", {
-      color: colors.textSecondary,
-      textAlign: "center",
-      marginBottom: spacing.lg,
-    }),
+    ...themeUtils.styles.textBase,
+    color: colors.textSecondary,
+    textAlign: "center",
+    marginBottom: spacing.lg,
   },
 });

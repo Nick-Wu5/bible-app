@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { spacing } from "../../styles/theme";
+import { colors, spacing } from "../../styles/theme";
 import FABButton from "./FABButton";
 
 interface FABContainerProps {
@@ -46,8 +46,22 @@ const FABContainer: React.FC<FABContainerProps> = ({
 const styles = StyleSheet.create({
   container: {
     position: "absolute",
+    bottom: 0,
+    left: 0,
+    right: 0,
+    backgroundColor: colors.surface,
+    borderTopWidth: 1,
+    borderTopColor: colors.border,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: spacing.md,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  fabContainer: {
+    position: "absolute",
+    bottom: spacing.xl,
     right: spacing.xl,
-    zIndex: 1000,
   },
 });
 

@@ -1,3 +1,12 @@
+import { useAuth } from "@/contexts/AuthContext";
+import {
+  borderRadius,
+  colors,
+  commonStyles,
+  shadows,
+  spacing,
+} from "@/styles/theme";
+import { themeUtils } from "@/styles/themeUtils";
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import {
@@ -9,15 +18,6 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { useAuth } from "@/contexts/AuthContext";
-import {
-  borderRadius,
-  colors,
-  commonStyles,
-  shadows,
-  spacing,
-} from "@/styles/theme";
-import { themeUtils } from "@/styles/themeUtils";
 
 export default function ProfileScreen() {
   const { currentUser, logout, updateUser } = useAuth();
@@ -81,7 +81,7 @@ export default function ProfileScreen() {
       <View style={styles.section}>
         <Text style={commonStyles.sectionTitle}>Account Settings</Text>
 
-        <View style={themeUtils.createCard()}>
+        <View style={themeUtils.styles.card}>
           <View style={styles.settingInfo}>
             <Ionicons name="book" size={20} color={colors.textSecondary} />
             <Text style={styles.settingLabel}>Preferred Translation</Text>
@@ -92,7 +92,7 @@ export default function ProfileScreen() {
         </View>
 
         <TouchableOpacity
-          style={themeUtils.createCard()}
+          style={themeUtils.styles.card}
           onPress={() => {
             Alert.alert(
               "Change Translation",
@@ -126,7 +126,7 @@ export default function ProfileScreen() {
       <View style={styles.section}>
         <Text style={commonStyles.sectionTitle}>App Settings</Text>
 
-        <View style={themeUtils.createCard()}>
+        <View style={themeUtils.styles.card}>
           <View style={styles.settingInfo}>
             <Ionicons
               name="notifications"
@@ -143,7 +143,7 @@ export default function ProfileScreen() {
           />
         </View>
 
-        <View style={themeUtils.createCard()}>
+        <View style={themeUtils.styles.card}>
           <View style={styles.settingInfo}>
             <Ionicons name="moon" size={20} color={colors.textSecondary} />
             <Text style={styles.settingLabel}>Dark Mode</Text>
@@ -160,7 +160,7 @@ export default function ProfileScreen() {
       <View style={styles.section}>
         <Text style={commonStyles.sectionTitle}>Support</Text>
 
-        <TouchableOpacity style={themeUtils.createCard()}>
+        <TouchableOpacity style={themeUtils.styles.card}>
           <View style={styles.settingInfo}>
             <Ionicons
               name="help-circle"
@@ -176,7 +176,7 @@ export default function ProfileScreen() {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity style={themeUtils.createCard()}>
+        <TouchableOpacity style={themeUtils.styles.card}>
           <View style={styles.settingInfo}>
             <Ionicons name="mail" size={20} color={colors.textSecondary} />
             <Text style={styles.settingLabel}>Contact Support</Text>
@@ -188,7 +188,7 @@ export default function ProfileScreen() {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity style={themeUtils.createCard()}>
+        <TouchableOpacity style={themeUtils.styles.card}>
           <View style={styles.settingInfo}>
             <Ionicons
               name="document-text"
@@ -244,24 +244,24 @@ const styles = StyleSheet.create({
     ...shadows.md,
   },
   avatarText: {
-    ...themeUtils.createText("3xl", {
-      fontWeight: "700",
-      color: "white",
-    }),
+    ...themeUtils.styles.text3xl,
+    fontWeight: "700",
+    color: "white",
   },
   userName: {
-    ...themeUtils.createText("2xl", { fontWeight: "700" }),
+    ...themeUtils.styles.text2xl,
+    fontWeight: "700",
     marginBottom: spacing.xs,
   },
   userPhone: {
-    ...themeUtils.createText("base", { color: colors.textSecondary }),
+    ...themeUtils.styles.textBase,
+    color: colors.textSecondary,
     marginBottom: spacing.xs,
   },
   userDenomination: {
-    ...themeUtils.createText("sm", {
-      color: colors.textSecondary,
-      fontStyle: "italic",
-    }),
+    ...themeUtils.styles.textSm,
+    color: colors.textSecondary,
+    fontStyle: "italic",
   },
   section: {
     paddingHorizontal: spacing.lg,
@@ -273,14 +273,13 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   settingLabel: {
-    ...themeUtils.createText("base"),
+    ...themeUtils.styles.textBase,
     marginLeft: spacing.sm,
   },
   settingValue: {
-    ...themeUtils.createText("sm", {
-      color: colors.textSecondary,
-      fontWeight: "500",
-    }),
+    ...themeUtils.styles.textSm,
+    color: colors.textSecondary,
+    fontWeight: "500",
   },
   logoutButton: {
     backgroundColor: "#dc3545",
@@ -292,10 +291,9 @@ const styles = StyleSheet.create({
     ...shadows.sm,
   },
   logoutButtonText: {
-    ...themeUtils.createText("base", {
-      fontWeight: "600",
-      color: "white",
-    }),
+    ...themeUtils.styles.textBase,
+    fontWeight: "600",
+    color: "white",
     marginLeft: spacing.sm,
   },
   footer: {
@@ -304,6 +302,7 @@ const styles = StyleSheet.create({
     marginTop: spacing.lg,
   },
   versionText: {
-    ...themeUtils.createText("xs", { color: colors.textSecondary }),
+    ...themeUtils.styles.textXs,
+    color: colors.textSecondary,
   },
 });

@@ -54,8 +54,14 @@ const CameraControls: React.FC<CameraControlsProps> = ({
 
 const styles = StyleSheet.create({
   container: {
+    position: "absolute",
+    bottom: spacing.xl,
+    left: 0,
+    right: 0,
+    flexDirection: "row",
+    justifyContent: "space-around",
     alignItems: "center",
-    gap: spacing.md,
+    paddingHorizontal: spacing.lg,
   },
   controlButton: {
     width: 44,
@@ -67,6 +73,33 @@ const styles = StyleSheet.create({
   },
   controlButtonDisabled: {
     opacity: 0.5,
+  },
+  button: {
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: colors.surface,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  captureButton: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: colors.primary,
+    borderWidth: 4,
+    borderColor: colors.surface,
+  },
+  icon: {
+    color: colors.textPrimary,
+  },
+  captureIcon: {
+    color: colors.surface,
   },
 });
 

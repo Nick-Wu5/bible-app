@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { colors, spacing } from "../../styles/theme";
+import { themeUtils } from "../../styles/themeUtils";
 
 const CameraOverlay: React.FC = () => {
   return (
@@ -34,13 +35,28 @@ const CameraOverlay: React.FC = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: 5,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  scanArea: {
+    width: 300,
+    height: 200,
+    borderWidth: 2,
+    borderColor: colors.primary,
+    backgroundColor: "transparent",
   },
   guideContainer: {
     flex: 1,
@@ -107,13 +123,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
   },
   instructionText: {
+    ...themeUtils.styles.textBase,
     color: colors.surface,
-    fontSize: 16,
     textAlign: "center",
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    borderRadius: 8,
+    marginTop: spacing.lg,
+    paddingHorizontal: spacing.lg,
   },
 });
 
